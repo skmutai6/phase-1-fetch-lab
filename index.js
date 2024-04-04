@@ -1,11 +1,15 @@
 function fetchBooks() {
   // To pass the tests, don't forget to return your fetch!
-  fetch('https://anapioficeandfire.com/api/books')
-    .then(res => res.json())
+  return fetch('https://anapioficeandfire.com/api/books')
+    .then(response => {
+      if (!response.ok) {
+        throw error('fetch to the API was not found');
+      }
+      return response.json();
+    })
     .then(books => renderBooks(books))
-    .catch(error => console.error('Books not found:', error));
+    .catch(error => console.error('Error!:', error));
 }
-fetchBooks()
 
 function renderBooks(books) {
   const main = document.querySelector('main');
@@ -19,6 +23,3 @@ function renderBooks(books) {
 document.addEventListener('DOMContentLoaded', function() {
   fetchBooks();
 });
-
-
-
